@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_layout}">
+<head><title>Thêm sản phẩm mới</title></head>
+<body>
+<div layout:fragment="content">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0">Thêm sản phẩm mới</h4>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/products/create}" th:object="${product}" method="post" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Name</label>
+                            <input type="text" th:field="*{name}" class="form-control" placeholder="Nhập tên sản phẩm">
+                            <div class="text-danger small" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Price</label>
+                            <input type="number" th:field="*{price}" class="form-control" placeholder="Nhập giá sản phẩm">
+                            <div class="text-danger small" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Image</label>
+                            <input type="file" name="imageProduct" class="form-control" accept="image/*">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Category</label>
+                            <select th:field="*{category.id}" class="form-select">
+                                <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
+                            </select>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success">Add Product</button>
+                            <a th:href="@{/products}" class="btn btn-light border">Back to List</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
