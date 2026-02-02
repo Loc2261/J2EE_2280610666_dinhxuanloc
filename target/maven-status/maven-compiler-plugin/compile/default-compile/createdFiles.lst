@@ -1,7 +1,0 @@
-com\example\demo\DemoApplication.class
-com\example\demo\models\Category.class
-com\example\demo\controllers\HomeController.class
-com\example\demo\models\Product.class
-com\example\demo\controllers\ProductController.class
-com\example\demo\services\ProductService.class
-com\example\demo\services\CategoryService.class
