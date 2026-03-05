@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{product/layout_product}"> <head>
+    <meta charset="UTF-8">
+    <title>Thêm sản phẩm mới</title>
+    <style>
+        .form-card { border-radius: 15px; border: none; }
+        .btn-custom { padding: 10px 25px; border-radius: 8px; }
+    </style>
+</head>
+<body>
+<div layout:fragment="content" class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow form-card">
+                <div class="card-header bg-success text-white p-3">
+                    <h4 class="mb-0"><i class="bi bi-plus-circle"></i> Thêm sản phẩm mới</h4>
+                </div>
+                <div class="card-body p-4">
+                    <form th:action="@{/products/create}" th:object="${product}"
+                          method="post" class="needs-validation" enctype="multipart/form-data">
+
+                        <div class="mb-3">
+                            <label for="name" class="form-label fw-bold">Tên sản phẩm:</label>
+                            <input class="form-control" type="text" th:field="*{name}"
+                                   id="name" placeholder="Nhập tên sản phẩm (Ví dụ: iPhone 15)">
+                            <div class="text-danger small mt-1"
+                                 th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="price" class="form-label fw-bold">Giá bán (VNĐ):</label>
+                                <input class="form-control" type="number" th:field="*{price}"
+                                       id="price" placeholder="Nhập giá bán">
+                                <div class="text-danger small mt-1"
+                                     th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="category" class="form-label fw-bold">Danh mục:</label>
+                                <select th:field="*{category.id}" class="form-select" id="category">
+                                    <option th:each="category : ${categories}"
+                                            th:value="${category.id}"
+                                            th:text="${category.name}"></option>
+                                </select>
+                                <div class="text-danger small mt-1"
+                                     th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="image" class="form-label fw-bold">Hình ảnh sản phẩm:</label>
+                            <input class="form-control"
+                                   type="file"
+                                   id="image"
+                                   name="imageFile"
+                                   accept="image/png, image/jpeg, image/jpg">
+                            <small class="text-muted italic">Vui lòng chọn tệp ảnh có dung lượng dưới 10MB.</small>
+                            <div class="text-danger small mt-1"
+                                 th:if="${#fields.hasErrors('image')}" th:errors="*{image}"></div>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <div class="d-flex gap-2 justify-content-end">
+                            <a th:href="@{/products}" class="btn btn-outline-secondary btn-custom">
+                                <i class="bi bi-arrow-left"></i> Quay lại
+                            </a>
+                            <button type="submit" class="btn btn-success btn-custom shadow-sm">
+                                <i class="bi bi-check-lg"></i> Xác nhận thêm
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
